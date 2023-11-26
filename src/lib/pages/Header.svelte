@@ -223,9 +223,9 @@ function logOut(){
 	.user_nav:hover .user_menu{
 		display: block;
 	}
-	div[aria-current='page'] a{
+	/* div[aria-current='page'] a{
 		color: burlywood;
-	}
+	} */
 
 /*	header {
 		display: flex;

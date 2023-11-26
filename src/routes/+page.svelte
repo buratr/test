@@ -114,7 +114,7 @@
 				 {#if productReady}
 				 <!-- {products} -->
 					{#each products as product}
-						<Home_product obj={product}/>
+						<!-- <Home_product obj={product}/> -->
 					{/each}
 					{:else}
 					<div class="product_card max-w-sm flex flex-col relative mb-4 mr-4">
