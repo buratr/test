@@ -66,7 +66,7 @@ inputEmail=""
 				<div class="grow shrink grid grid-cols-[max-content_max-content_max-content] gap-10 justify-between items-start">
 					<div class="grid grid-rows-1 items-start gap-10">
 						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F] mb-2">Links</div>
-						<a aria-current={$page.url.pathname === `/` || $page.url.pathname === `/` ? 'page' : undefined}
+						<!-- <a aria-current={$page.url.pathname === `/` || $page.url.pathname === `/` ? 'page' : undefined}
 						 class="font-['Poppins'] text-base font-normal text-black hover:text-yellow-600" 
 						 href="/">home</a>
 						<a aria-current={$page.url.pathname === `/shop` || $page.url.pathname === `/shop` ? 'page' : undefined}
@@ -77,7 +77,7 @@ inputEmail=""
 						 href="/about">about</a>
 						<a aria-current={$page.url.pathname === `/contact` || $page.url.pathname === `/contact` ? 'page' : undefined}
 						class="font-['Poppins'] text-base font-normal text-black hover:text-yellow-600" 
-						href="/contact">contact</a>
+						href="/contact">contact</a> -->
 					</div>
 					<div class="grid grid-rows-1 items-start gap-10">
 						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F] mb-2">Help</div>
