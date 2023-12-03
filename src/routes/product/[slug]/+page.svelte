@@ -41,7 +41,7 @@ let currProduct = currentProduct[0]
     <div class="container">
         <div class="flex">
             <div class="w-[423px] h-[500px] rounded-xl overflow-hidden flex">
-                <img class="w-full object-cover" src="/src/lib/images/products/{currProduct.img}" alt="">
+                <img class="w-full object-cover" src="/images/products/{currProduct.img}" alt="">
             </div>
             <div class="ml-44">
                 <h1 class=" text-black font-['Poppins'] text-[42px]">{currProduct.name}</h1>
@@ -157,11 +157,11 @@ let currProduct = currentProduct[0]
             </div>
             <div class="grid grid-cols-[1fr_1fr] gap-x-7 max-w-[1239px] w-full ml-auto mr-auto">
                 <div class="max-w-[605px] h-[348px] rounded-xl overflow-hidden flex">
-                    <img class="w-full object-cover" src="/src/lib/images/products/{currProduct.img}" alt="">
+                    <img class="w-full object-cover" src="/images/products/{currProduct.img}" alt="">
                 </div>
 
                 <div class="max-w-[605px] h-[348px] rounded-xl overflow-hidden flex">
-                    <img class="w-full object-cover" src="/src/lib/images/products/{currProduct.img}" alt="">
+                    <img class="w-full object-cover" src="/images/products/{currProduct.img}" alt="">
                 </div>
             </div>
         </div>
