@@ -5,6 +5,7 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import hero_img from '$lib/images/main-background-hero.png';
 	import slide_01 from '$lib/images/slide_01.jpg';
 	import slide_02 from '$lib/images/slide_02.jpg';
 	import slide_03 from '$lib/images/slide_03.png';
@@ -60,7 +61,8 @@
 </svelte:head>
 
 <!-- section hero -->
-<section class="flex bg-cover justify-center bg-center bg-[url('/images/main-background-hero.png')] py-36">
+<section class="flex bg-cover justify-center bg-center bg-[url('{hero_img}')] py-36">
+	
 <div class="container">
 <div class="flex justify-end">
 	<div class="px-10 py-14 bg-[#FFF3E3] rounded-lg max-w-xl">
