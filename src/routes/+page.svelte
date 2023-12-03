@@ -60,7 +60,7 @@
 </svelte:head>
 
 <!-- section hero -->
-<section class="flex bg-cover justify-center bg-center bg-[url('/src/lib/images/main-background-hero.png')] py-36">
+<section class="flex bg-cover justify-center bg-center bg-[url('/images/main-background-hero.png')] py-36">
 <div class="container">
 <div class="flex justify-end">
 	<div class="px-10 py-14 bg-[#FFF3E3] rounded-lg max-w-xl">
@@ -114,7 +114,7 @@
 				 {#if productReady}
 				 <!-- {products} -->
 					{#each products as product}
-						<!-- <Home_product obj={product}/> -->
+						 <Home_product obj={product}/>
 					{/each}
 					{:else}
 					<div class="product_card max-w-sm flex flex-col relative mb-4 mr-4">

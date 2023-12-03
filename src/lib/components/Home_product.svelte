@@ -35,7 +35,7 @@ export let obj:any
             </div>
         </div>
 
-        <img class="w-full h-[301px]" src="/src/lib/images/products/{obj.img}" alt="">
+        <img class="w-full h-[301px]" src="/images/products/{obj.img}" alt="">
 
     </div>
     <div class="pt-4 pr-5 pb-7 pl-4 bg-[#F4F5F7]">
