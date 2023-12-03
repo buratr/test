@@ -175,20 +175,20 @@ function logOut(){
 
 	<nav>
 		
-		<!-- <div class="grid  grid-cols-[max-content_max-content_max-content_max-content] gap-x-16">
-			<div class="block" aria-current={$page.url.pathname === `/${$locale}` || $page.url.pathname === `/` ? 'page' : undefined}>
-				<a class="text-black hover:no-underline hover:text-yellow-600" href="/{$locale}/">{$t('nav.home')}</a>
+		 <div class="grid  grid-cols-[max-content_max-content_max-content_max-content] gap-x-16">
+			<div class="block" aria-current={$page.url.pathname === `/` || $page.url.pathname === `/` ? 'page' : undefined}>
+				<a class="text-black hover:no-underline hover:text-yellow-600" href="/">home</a>
 			</div>
-			<div class="block" aria-current={$page.url.pathname === `/${$locale}/shop` || $page.url.pathname === `/shop` ? 'page' : undefined}>
-				<a class="text-black hover:no-underline hover:text-yellow-600" href="/{$locale}/shop">{$t('nav.shop')}</a>
+			<div class="block" aria-current={$page.url.pathname === `/shop` || $page.url.pathname === `/shop` ? 'page' : undefined}>
+				<a class="text-black hover:no-underline hover:text-yellow-600" href="/shop">shop</a>
 			</div>
-			<div class="block" aria-current={$page.url.pathname === `/${$locale}/about` || $page.url.pathname === `/about` ? 'page' : undefined}>
+		<!--	<div class="block" aria-current={$page.url.pathname === `/${$locale}/about` || $page.url.pathname === `/about` ? 'page' : undefined}>
 				<a class="text-black hover:no-underline hover:text-yellow-600" href="/{$locale}/about">{$t('nav.about')}</a>
 			</div>
 			<div class="block" aria-current={$page.url.pathname === `/${$locale}/contact` || $page.url.pathname === `/contact` ? 'page' : undefined}>
 				<a class="text-black hover:no-underline hover:text-yellow-600" href="/{$locale}/contact">{$t('nav.contact')}</a>
-			</div>
-		</div> -->
+			</div>-->
+		</div> 
 		
 	</nav>
 
