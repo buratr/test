@@ -90,11 +90,11 @@
 				{#each products_server as product}
 				<Home_product obj={product}/>
 				{/each}
-				{#if productReady}
-				<!-- {products} -->
-				   {#each products as product}
+				<!-- {#if productReady}
+				 {products} -->
+				   <!-- {#each products as product}
 					   <Home_product obj={product}/>
-				   {/each}
+				   {/each} 
 				{:else}
 					<div class="product_card max-w-sm flex flex-col relative mb-4 mr-4">
 						<div class="w-[284px] h-[300px] bg-slate-200"></div>
@@ -148,7 +148,7 @@
 							</div>
 						</div>
 					</div>
-			   {/if}
+			   {/if} -->
 			</div>
 			<div class="mx-auto text-center mt-8 grid grid-cols-[max-content_max-content_max-content_max-content] gap-x-10">
 				<button class="font-['Poppins'] text-xl font-light px-7 py-4 rounded-xl  text-[#fff] bg-[#B88E2F]">
