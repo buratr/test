@@ -7,7 +7,7 @@ export let obj:any
     
     <div class="product-img-wrap">
         <div class="absolute bg-[#3A3A3A] bg-opacity-75 bottom-0 left-0 right-0 top-0 hidden flex-col justify-center items-center px-4">
-            <a href="/product/{obj.id}" class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-12 bg-white mb-6 hover:bg-[#f1f1f1]">
+            <a href="/product/{obj.slug}" class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-12 bg-white mb-6 hover:bg-[#f1f1f1]">
                 Add to cart
             </a>
             <div class="flex justify-between items-center w-full">
