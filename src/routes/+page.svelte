@@ -92,9 +92,9 @@
 				</div>
 			</div>
 			<div class="grid grid-cols-[1fr_1fr_1fr] gap-4 justify-between">
-				<!-- <Home_rang src={"/src/lib/images/dining.jpg"} name={"Dining"}/>
-				<Home_rang src={"/src/lib/images/Living.jpg"} name={"Living"}/>
-				<Home_rang src={"/src/lib/images/Bedroom.jpg"} name={"Bedroom"}/> -->
+				<Home_rang src={"/images/dining.jpg"} name={"Dining"}/>
+				<Home_rang src={"/images/Living.jpg"} name={"Living"}/>
+				<Home_rang src={"/images/Bedroom.jpg"} name={"Bedroom"}/> 
 			</div>
 		</div>
 	</div>
