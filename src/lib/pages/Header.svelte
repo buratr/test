@@ -11,6 +11,7 @@
 	import lk from '$lib/images/lk.svg';
 	import { goto } from '$app/navigation';
 	import {auth} from "$lib/firebase/firebase"
+	import Nav_cart from "$lib/components/Nav_cart.svelte"
 	// const firebaseConfig = {
 	// 	apiKey: "AIzaSyDdXTxd7UgzoleyLWogcypU_9HtGoTv9XQ",
 	// 	authDomain: "project-furniro.firebaseapp.com",
@@ -86,8 +87,19 @@
 // 	}
 // let cur_url:string = $locale
 //console.log("cur_url", cur_url)
+
+import {cartVisible} from '$lib/pages/Header'
+//let cartVisible:boolean = false
 let modalLogin:boolean = false;
 let inputEmail:string, inputPass:string, inputCPass:string  = "";
+function showCart (){
+	cartVisible.set(1)
+}
+
+let cartW:any
+cartVisible.subscribe((value) => {
+	cartW = value;
+	});
 function openModalLogin(){
 	modalLogin=true
 }
@@ -208,8 +220,11 @@ function logOut(){
 				<img on:click={openModalLogin} class="cursor-pointer w-7" src={login_icon} alt="login" />
 			{/if}
 			
-			<img class="cursor-pointer w-7" src={cart} alt="cart" /> 
-
+			<img class="cursor-pointer w-7" src={cart} alt="cart" on:click={showCart} /> 
+			{#if cartW == 1 }
+			<Nav_cart/>
+			{/if}
+			
 			<!-- <select on:change="{({ target }) => goto(target.value)}">
 				{#each $locales as lc}
 				  <option value="/{lc}{route}" selected="{lc === $locale}">{$t(`lang.${lc}`)}</option>
