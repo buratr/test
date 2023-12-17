@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .container{
-    @apply max-w-screen-2xl px-24 mx-auto w-auto
+    @apply max-w-screen-2xl px-24 mx-auto w-full
 }
