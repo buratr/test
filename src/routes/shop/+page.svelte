@@ -64,13 +64,15 @@
 </svelte:head>
 
 <!-- section hero -->
-<section class="flex bg-cover justify-center bg-center bg-[url('/src/lib/images/shop-hero-img.jpg')] py-36">
-<div class="container">
-<div class="flex justify-center">
+<!-- bg-[url('/src/lib/images/shop-hero-img.jpg')] -->
+<section class="flex bg-cover justify-center bg-center relative">
+	<img class="absolute w-full h-full object-cover" src="/src/lib/images/shop-hero-img.jpg" alt="">
+<div class="container z-10">
+<div class="flex justify-center py-36">
 	<div class=" ">
 		<div class="font-['Poppins'] text-5xl font-medium text-[#000000] ">Shop</div>
 		<div class="flex justify-center mt-3">
-			<div class="font-['Poppins'] text-base font-medium text-[#000000]">Home</div>
+			<a href="/" class="font-['Poppins'] text-base font-medium text-[#000000]">Home</a>
 			<div class="font-['Poppins'] text-base font-medium text-[#000000] mx-1">></div>
 			<div class="font-['Poppins'] text-base font-medium text-[#000000]">Shop</div>
 		

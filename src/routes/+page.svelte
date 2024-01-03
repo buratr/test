@@ -61,10 +61,11 @@
 </svelte:head>
 
 <!-- section hero -->
-<section class="flex bg-cover justify-center bg-center bg-[url('{hero_img}')] py-36">
-	
-<div class="container">
-<div class="flex justify-end">
+<!-- bg-[url('{hero_img}')] -->
+<section class="flex bg-cover justify-center bg-center relative">
+	<img class="absolute w-full h-full object-cover" src="{hero_img}" alt="">
+<div class="container z-10">
+<div class="flex justify-end py-36">
 	<div class="px-10 py-14 bg-[#FFF3E3] rounded-lg max-w-xl">
 		<div class="font-['Poppins'] text-base font-semibold text-[#333333] tracking-widest">New Arrival</div>
 		<div class="font-['Poppins'] text-5xl font-bold text-[#B88E2F]">

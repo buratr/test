@@ -5,9 +5,9 @@ function hiddenCart (){
 	cartVisible.set(0)
 }
 </script>
-<div class="fixed z-10 left-0 right-0 top-0 bottom-0">
+<div class="fixed z-20 left-0 right-0 top-0 bottom-0">
 <div on:click={hiddenCart} class="absolute left-0 right-0 top-0 bottom-0 bg-[#00000033]"></div>
-    <div class="relative z-10 ml-auto w-[417px] h-[746px] bg-white py-7 flex flex-col">
+    <div class="relative z-20 ml-auto w-[417px] h-[746px] bg-white py-7 flex flex-col">
         <div class="w-full flex items-center px-8 mb-7">
             <div class="font-['Poppins'] text-2xl font-semibold text-[#000000]">Shopping Cart</div>
             <svg on:click={hiddenCart} class="ml-auto cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">

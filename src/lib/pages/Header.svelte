@@ -146,7 +146,7 @@ function logOut(){
 <header class="px-14 py-7 bg-white flex justify-between items-center">
 
 {#if modalLogin}
-<div class="backdrop-blur-sm fixed bg-[#6b6c5680] top-0 right-0 bottom-0 left-0 z-10 flex justify-center items-center">
+<div class="backdrop-blur-sm fixed bg-[#6b6c5680] top-0 right-0 bottom-0 left-0 z-20 flex justify-center items-center">
 	<div class="w-96 m-8 bg-slate-300 rounded-lg p-8 pt-11 flex flex-col text-center relative">
 		<a href="#" on:click={closeModalLogin}>
 			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 256 256" xml:space="preserve"

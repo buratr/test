@@ -2,6 +2,7 @@
 	//import '/src/input.css';
 	export let data;
 	//const { products_server } = data;
+	import logoIcon from '$lib/images/House_Logo.png';
 	import { initializeApp } from "firebase/app";
 	import {getFirestore, collection, getDocs } from "firebase/firestore"; 
 	import Home_rang from "$lib/components/Home_rang.svelte"
@@ -64,13 +65,16 @@
 </svelte:head>
 
 <!-- section hero -->
-<section class="flex bg-cover justify-center bg-center bg-[url('/src/lib/images/shop-hero-img.jpg')] py-36">
-<div class="container">
-<div class="flex justify-center">
-	<div class=" ">
+<!-- bg-[url('/src/lib/images/shop-hero-img.jpg')] -->
+<section class="flex bg-cover justify-center bg-center relative ">
+	<img class="absolute w-full h-full object-cover" src="/src/lib/images/shop-hero-img.jpg" alt="">
+<div class="container z-10">
+<div class="flex justify-center py-36">
+	<div class="text-center">
+		<img class="w-20 h-20 mx-auto" src={logoIcon} alt="SvelteKit" />
 		<div class="font-['Poppins'] text-5xl font-medium text-[#000000] ">Cart</div>
 		<div class="flex justify-center mt-3">
-			<div class="font-['Poppins'] text-base font-medium text-[#000000]">Home</div>
+			<a href="/" class="font-['Poppins'] text-base font-medium text-[#000000]">Home</a>
 			<div class="font-['Poppins'] text-base font-medium text-[#000000] mx-1">></div>
 			<div class="font-['Poppins'] text-base font-medium text-[#000000]">Cart</div>
 		
@@ -86,9 +90,35 @@
 	<div class="container">
 		<div class="flex flex-row justify-between w-full">
 			<div class="flex-1">
-                <div class="bg-[#F9F1E7] py-4 px-36">
+                <div class="bg-[#F9F1E7] py-4 flex justify-between">
+					<div class="w-24"></div>
                     <div class="font-['Poppins'] text-base font-medium text-[#000000]">Product</div>
+					<div class="font-['Poppins'] text-base font-medium text-[#000000]">Price</div>
+					<div class="font-['Poppins'] text-base font-medium text-[#000000]">Quantity</div>
+					<div class="font-['Poppins'] text-base font-medium text-[#000000]">Subtotal</div>
+					<div></div>
                 </div>
+
+				<div class="mt-14">
+					<div class="flex justify-between items-center mb-8">
+						<img class="w-24 h-24 rounded-xl" src="/images/products/Leviosa.jpg" alt="">
+						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Asgaard sofa</div>
+						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Rs. 250,000.00</div>
+						<input class="border rounded border-black w-12 h-8 pl-3 pr-1" type="number" min="0" value="1">
+						<div class="font-['Poppins'] text-base font-normal text-[#000000]">Rs. 250,000.00</div>
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M23.625 7H20.125V4.8125C20.125 3.84727 19.3402 3.0625 18.375 3.0625H9.625C8.65977 3.0625 7.875 3.84727 7.875 4.8125V7H4.375C3.89102 7 3.5 7.39102 3.5 7.875V8.75C3.5 8.87031 3.59844 8.96875 3.71875 8.96875H5.37031L6.0457 23.2695C6.08945 24.202 6.86055 24.9375 7.79297 24.9375H20.207C21.1422 24.9375 21.9105 24.2047 21.9543 23.2695L22.6297 8.96875H24.2812C24.4016 8.96875 24.5 8.87031 24.5 8.75V7.875C24.5 7.39102 24.109 7 23.625 7ZM18.1562 7H9.84375V5.03125H18.1562V7Z" fill="#B88E2F"/></svg>
+					</div>
+
+					<div class="flex justify-between items-center mb-8">
+						<img class="w-24 h-24 rounded-xl" src="/images/products/Leviosa.jpg" alt="">
+						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Asgaard sofa</div>
+						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Rs. 250,000.00</div>
+						<input class="border rounded border-black w-12 h-8 pl-3 pr-1" type="number" min="0" value="1">
+						<div class="font-['Poppins'] text-base font-normal text-[#000000]">Rs. 250,000.00</div>
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M23.625 7H20.125V4.8125C20.125 3.84727 19.3402 3.0625 18.375 3.0625H9.625C8.65977 3.0625 7.875 3.84727 7.875 4.8125V7H4.375C3.89102 7 3.5 7.39102 3.5 7.875V8.75C3.5 8.87031 3.59844 8.96875 3.71875 8.96875H5.37031L6.0457 23.2695C6.08945 24.202 6.86055 24.9375 7.79297 24.9375H20.207C21.1422 24.9375 21.9105 24.2047 21.9543 23.2695L22.6297 8.96875H24.2812C24.4016 8.96875 24.5 8.87031 24.5 8.75V7.875C24.5 7.39102 24.109 7 23.625 7ZM18.1562 7H9.84375V5.03125H18.1562V7Z" fill="#B88E2F"/></svg>
+					</div>
+				</div>
+				
             </div>
             <!-- Cart Totals -->
             <div class="bg-[#F9F1E7] w-[393px] pt-4 pb-20 px-16 ml-8">
