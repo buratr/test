@@ -3,6 +3,7 @@
 	export let data;
 	//const { products_server } = data;
 	import logoIcon from '$lib/images/House_Logo.png';
+	import shopHeroImg from '$lib/images/shop-hero-img.jpg';
 	import { initializeApp } from "firebase/app";
 	import {getFirestore, collection, getDocs } from "firebase/firestore"; 
 	import Home_rang from "$lib/components/Home_rang.svelte"
@@ -67,7 +68,7 @@
 <!-- section hero -->
 <!-- bg-[url('/src/lib/images/shop-hero-img.jpg')] -->
 <section class="flex bg-cover justify-center bg-center relative ">
-	<img class="absolute w-full h-full object-cover" src="/src/lib/images/shop-hero-img.jpg" alt="">
+	<img class="absolute w-full h-full object-cover" src="{shopHeroImg}" alt="">
 <div class="container z-10">
 <div class="flex justify-center py-36">
 	<div class="text-center">
