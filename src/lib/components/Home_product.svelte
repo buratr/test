@@ -3,7 +3,7 @@ import { cartItems } from '$lib/store';
 export let obj:any
 //import { t, locales, locale, defaultLocale } from '$lib/translations';
 
-
+  import {cartVisible} from '$lib/pages/Header'
 function addToCart(newItemName:string, img:string, price:string) {
     const newItem: CartItem = {
       id: Math.random(), // или используйте ваш собственный механизм генерации идентификатора
@@ -14,7 +14,10 @@ function addToCart(newItemName:string, img:string, price:string) {
 
     cartItems.update(items => [...items, newItem]);
     newItemName = ''; // Очистим поле ввода после добавления в корзину
+    cartVisible.set(1)
   }
+
+
 
 </script>
 
