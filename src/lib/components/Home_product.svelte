@@ -1,15 +1,31 @@
 <script lang="ts">
+import { cartItems } from '$lib/store';
 export let obj:any
 //import { t, locales, locale, defaultLocale } from '$lib/translations';
+
+
+function addToCart(newItemName:string, img:string, price:string) {
+    const newItem: CartItem = {
+      id: Math.random(), // или используйте ваш собственный механизм генерации идентификатора
+      name: newItemName,
+      img: img,
+      price: price,
+    };
+
+    cartItems.update(items => [...items, newItem]);
+    newItemName = ''; // Очистим поле ввода после добавления в корзину
+  }
+
 </script>
 
 <div class="product_card max-w-sm flex flex-col relative mb-4 mr-4">
     
     <div class="product-img-wrap">
         <div class="absolute bg-[#3A3A3A] bg-opacity-75 bottom-0 left-0 right-0 top-0 hidden flex-col justify-center items-center px-4">
-            <a href="/product/{obj.slug}" class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-12 bg-white mb-6 hover:bg-[#f1f1f1]">
+            <!-- <a href="#" on:click={addToCart("test")} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-12 bg-white mb-6 hover:bg-[#f1f1f1]">
                 Add to cart
-            </a>
+            </a> -->
+            <button on:click={()=>{addToCart(obj.name, obj.img, obj.discount||obj.price)}} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-12 bg-white mb-6 hover:bg-[#f1f1f1]">Add to cart</button>
             <div class="flex justify-between items-center w-full">
             <a href="#" class="flex justify-between items-center text-[#fff] font-['Poppins'] text-base font-semibold hover:no-underline hover:text-[#ebca5d]"> 
                 <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
