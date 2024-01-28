@@ -6,6 +6,7 @@ interface CartItem {
   name: string;
   img: string;
   price: string;
+  quantity: number; 
 }
 
 let initialCartItems: CartItem[] = [];
@@ -32,13 +33,21 @@ export function removeFromCart(itemId: number): void {
     cartItems.update(items => items.filter(item => item.id !== itemId));
   }
 
+  // Функция обновления количества товара в корзине по id
+export function updateCartItemQuantity(itemId: number, newQuantity: number): void {
+  cartItems.update(items => items.map(item => {
+    if (item.id === itemId) {
+      return {...item, quantity: newQuantity};
+    }
+    return item;
+  }));
+}
+
 // Функция подсчета общей суммы заказа
 export function getTotalOrderAmount(items: CartItem[]): number {
-   
-
    let totalAmount:number = 0;
         items.forEach(item => {
-            totalAmount += Number(item.price);
+            totalAmount += Number(item.price)  * Number(item.quantity);
         });
         return totalAmount;
   }

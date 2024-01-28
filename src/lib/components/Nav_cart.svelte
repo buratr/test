@@ -16,8 +16,9 @@ let newItemName = '';
 
   function addToCart() {
     const newItem: CartItem = {
-      id: Math.random(), // или используйте ваш собственный механизм генерации идентификатора
+      id: Math.random(),
       name: newItemName,
+      quantity:1,
     };
 
     cartItems.update(items => [...items, newItem]);
@@ -52,7 +53,7 @@ function delItem(id:number){
                 <div>
                     <div class="font-['Poppins'] text-base font-normal text-[#000000]">{item.name}</div>
                     <div class="font-['Poppins'] text-base font-light text-[#000000] flex items-center mt-3">
-                        <div>1</div>
+                        <div>{item.quantity}</div>
                         <div class="mx-4">X</div>
                         <div class="font-medium text-[#B88E2F]">Rs. {item.price}</div>
                     </div>

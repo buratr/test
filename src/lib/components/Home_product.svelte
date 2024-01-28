@@ -3,13 +3,14 @@ import { cartItems } from '$lib/store';
 export let obj:any
 //import { t, locales, locale, defaultLocale } from '$lib/translations';
 
-  import {cartVisible} from '$lib/pages/Header'
+import {cartVisible} from '$lib/pages/Header'
 function addToCart(newItemName:string, img:string, price:string) {
     const newItem: CartItem = {
-      id: Math.random(), // или используйте ваш собственный механизм генерации идентификатора
+      id: Math.random(), 
       name: newItemName,
       img: img,
       price: price,
+      quantity:1,
     };
 
     cartItems.update(items => [...items, newItem]);
