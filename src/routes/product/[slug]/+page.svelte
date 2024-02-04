@@ -1,11 +1,30 @@
 <script lang="ts">
 export let data;
+import { cartItems } from '$lib/store';
+import {cartVisible} from '$lib/pages/Header'
 //import { t, locales, locale, defaultLocale } from '$lib/translations';
 import Home_product from "$lib/components/Home_product.svelte"
 const { currentProduct, relatedProducts } = data;
 
 const productName = currentProduct[0].name
 let currProduct = currentProduct[0]
+
+let quant:number=1
+function addToCart(newItemName:string, img:string, price:string, quantity:string ) {
+    const newItem: CartItem = {
+      id: Math.random(), 
+      name: newItemName,
+      img: img,
+      price: price,
+      quantity:quantity,
+    };
+
+    cartItems.update(items => [...items, newItem]);
+    newItemName = ''; // Очистим поле ввода после добавления в корзину
+    cartVisible.set(1)
+  }
+function quantPlus(){quant += 1;}
+function quantMinus(){if(quant>1){quant -= 1}}
 //console.log(products_server)
 </script>
 <!-- 
@@ -45,7 +64,7 @@ let currProduct = currentProduct[0]
             </div>
             <div class="ml-44">
                 <h1 class=" text-black font-['Poppins'] text-[42px]">{currProduct.name}</h1>
-                <div class=" text-[#9F9F9F] font-['Poppins'] text-2xl">Rs. {currProduct.price}</div>
+                <div class=" text-[#9F9F9F] font-['Poppins'] text-2xl">Rs. {currProduct.discount||currProduct.price}</div>
                 <!-- star -->
                 <div class="flex mt-3">
                     <div class="grid grid-cols-[max-content_max-content_max-content_max-content_max-content] gap-x-1">
@@ -83,11 +102,11 @@ let currProduct = currentProduct[0]
 
                 <div class="mt-8 grid grid-cols-[max-content_max-content] gap-x-4">
                     <div class="px-4 py-3 border border-[#9F9F9F] rounded-xl flex w-[123px] justify-between items-center">
-                        <div class="cursor-pointer">-</div>
-                        <div>1</div>
-                        <div class="cursor-pointer">+</div>
+                        <div on:click={()=>{quantMinus()}} class="cursor-pointer">-</div>
+                        <div>{quant}</div>
+                        <div on:click={()=>{quantPlus()}} class="cursor-pointer">+</div>
                     </div>
-                    <button class="px-[48px] py-[17px] border border-black rounded-xl text-black font-['Poppins'] text-[20px] hover:bg-black hover:text-white">Add To Cart</button>
+                    <button on:click={()=>{addToCart(currProduct.name, currProduct.img, currProduct.discount||currProduct.price, quant)}} class="px-[48px] py-[17px] border border-black rounded-xl text-black font-['Poppins'] text-[20px] hover:bg-black hover:text-white">Add To Cart</button>
                 </div>
                 <hr class="mt-16 mb-11">
                 <div class="mt-8 grid grid-cols-[max-content_max-content] gap-x-4">
