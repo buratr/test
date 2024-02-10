@@ -49,7 +49,12 @@ function delItem(id:number){
              
                <!-- item -->
             <div class="px-7 flex items-center justify-between mb-5">
-                <img class="w-[105px] h-[105px] rounded-lg" src="/images/products/{item.img}" alt="">
+                <div class="relative">
+                    <div style="background-color: {item.color};" class="absolute left-1 top-1 rounded-full w-5 h-5 flex justify-center items-center border-[1px] border-white"></div>
+                    <div class="absolute left-auto right-1 top-1 bg-[#B88E2F] rounded-lg w-auto px-1 text-xs h-5 flex justify-center items-center text-white border-[1px] border-white">{item.size}</div>
+                    <img class="w-[105px] h-[105px] rounded-lg" src="/images/products/{item.img}" alt="">
+                </div>
+                
                 <div>
                     <div class="font-['Poppins'] text-base font-normal text-[#000000]">{item.name}</div>
                     <div class="font-['Poppins'] text-base font-light text-[#000000] flex items-center mt-3">

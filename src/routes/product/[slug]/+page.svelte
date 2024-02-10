@@ -8,7 +8,14 @@ const { currentProduct, relatedProducts } = data;
 
 const productName = currentProduct[0].name
 let currProduct = currentProduct[0]
-
+let currentSize:string=""
+function setSize(size:string){
+    currentSize=size;
+}
+let currentColor:string=""
+function setColor(color:string){
+    currentColor=color;
+}
 let quant:number=1
 function addToCart(newItemName:string, img:string, price:string, quantity:string ) {
     const newItem: CartItem = {
@@ -17,6 +24,8 @@ function addToCart(newItemName:string, img:string, price:string, quantity:string
       img: img,
       price: price,
       quantity:quantity,
+      size: currentSize,
+      color: currentColor 
     };
 
     cartItems.update(items => [...items, newItem]);
@@ -25,6 +34,8 @@ function addToCart(newItemName:string, img:string, price:string, quantity:string
   }
 function quantPlus(){quant += 1;}
 function quantMinus(){if(quant>1){quant -= 1}}
+
+
 //console.log(products_server)
 </script>
 <!-- 
@@ -84,19 +95,28 @@ function quantMinus(){if(quant>1){quant -= 1}}
                 <!-- size -->
                 <div class="mt-6">
                     <div class="text-[#9F9F9F] font-['Poppins'] text-sm">Size</div>
-                    <div class="grid grid-cols-[max-content_max-content_max-content] gap-x-4 mt-3">
-                        <div class="cursor-pointer bg-[#B88E2F] rounded-lg w-8 h-8 flex justify-center items-center text-white">L</div>
-                        <div class="cursor-pointer bg-[#F9F1E7] rounded-lg w-8 h-8 flex justify-center items-center hover:bg-[#B88E2F] hover:text-white">XL</div>
-                        <div class="cursor-pointer bg-[#F9F1E7] rounded-lg w-8 h-8 flex justify-center items-center hover:bg-[#B88E2F] hover:text-white">XS</div>
+                    <div class="grid grid-cols-[max-content_max-content_max-content] gap-x-4 gap-y-4 mt-3">
+                        {#each currProduct.size as size}
+                            <button on:click={()=>{setSize(size)}} class={`${
+                                currentSize !== size 
+                                  ? 'cursor-pointer bg-[#F9F1E7] rounded-lg w-8 h-8 flex justify-center items-center hover:bg-[#B88E2F] hover:text-white' 
+                                  : 'cursor-pointer bg-[#B88E2F] rounded-lg w-8 h-8 flex justify-center items-center text-white'
+                              }`}>{size}</button>
+				        {/each}     
                     </div>
                 </div>
                  <!-- Color -->
                  <div class="mt-6">
                     <div class="text-[#9F9F9F] font-['Poppins'] text-sm">Color</div>
                     <div class="grid grid-cols-[max-content_max-content_max-content] gap-x-4 mt-3">
-                        <div class="cursor-pointer bg-[#816DFA] rounded-full w-8 h-8 flex justify-center items-center hover:border-2 "></div>
-                        <div class="cursor-pointer bg-[#000] rounded-full w-8 h-8 flex justify-center items-center hover:border-2"></div>
-                        <div class="cursor-pointer bg-[#B88E2F] rounded-full w-8 h-8 flex justify-center items-center hover:border-2"></div>
+                        {#each currProduct.color as color}
+                            <button on:click={()=>{setColor(color)}}  style="background-color: {color};" class={`${
+                                currentColor !== color 
+                                  ? 'cursor-pointer  rounded-full w-8 h-8 flex justify-center items-center hover:border-2 ' 
+                                  : 'cursor-pointer  rounded-full w-8 h-8 flex justify-center items-center hover:border-2 border-4 border-sky-500'
+                              }`}></button>
+				        {/each}    
+  
                     </div>
                 </div>
 

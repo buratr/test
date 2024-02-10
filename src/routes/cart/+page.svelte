@@ -112,7 +112,13 @@
 				<div class="mt-14">
 					{#each $cartItems as item (item.id)}
 					<div class="flex justify-between items-center mb-8">
-						<img class="w-24 h-24 rounded-xl" src="/images/products/{item.img}" alt="">
+						<div class="relative">
+							<div style="background-color: {item.color};" class="absolute left-1 top-1 rounded-full w-5 h-5 flex justify-center items-center border-[1px] border-white"></div>
+							<div class="absolute left-auto right-1 top-1 bg-[#B88E2F] rounded-lg w-auto px-1 text-xs h-5 flex justify-center items-center  text-white border-[1px] border-white">{item.size}</div>
+							<img class="w-24 h-24 rounded-xl" src="/images/products/{item.img}" alt="">
+						</div>
+						
+
 						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">{item.name}</div>
 						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Rs. {item.price}</div>
 						<input class="border rounded border-black w-12 h-8 pl-3 pr-1" type="number" min="1" bind:value={item.quantity} on:change={() => updateQuantity(item.id, item.quantity)} >

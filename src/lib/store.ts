@@ -7,6 +7,8 @@ interface CartItem {
   img: string;
   price: string;
   quantity: number; 
+  size: string;
+  color:string;
 }
 
 let initialCartItems: CartItem[] = [];

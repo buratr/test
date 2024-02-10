@@ -31,7 +31,9 @@ export const load = async ({ params }) => {
                  img: doc.data().img,
                  price: doc.data().price,
                  discount: doc.data().discount,
-                 slug: doc.data().slug
+                 slug: doc.data().slug,
+                 size: doc.data().size,
+                 color: doc.data().color
             })
           });
          // serverData.currentProduct = products
@@ -83,7 +85,9 @@ export const load = async ({ params }) => {
 				img: doc.data().img,
 				price: doc.data().price,
 				discount: doc.data().discount,
-				slug: doc.data().slug
+				slug: doc.data().slug,
+                size: doc.data().size,
+                color: doc.data().color
 			})
 		});
         return relProducts
