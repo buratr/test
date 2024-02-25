@@ -35,22 +35,22 @@
 	let productReady:boolean = false;
 
 	
-	// getProduct().then(function(result:any) {
-	// 	 result.forEach((doc:any) => {
-	// 	 	const t = doc.data().name
-	// 		products.push({
-	// 			id: doc.id,
-	// 			name: doc.data().name,
-	// 			description: doc.data().description,
-	// 			img: doc.data().img,
-	// 			price: doc.data().price,
-	// 			discount: doc.data().discount,
-	// 			slug: doc.data().slug
-	// 		})
-	// 	});
-	// }).then(()=>{
-	// 	productReady=true
-	// })
+	getProduct().then(function(result:any) {
+		 result.forEach((doc:any) => {
+		 	const t = doc.data().name
+			products.push({
+				id: doc.id,
+				name: doc.data().name,
+				description: doc.data().description,
+				img: doc.data().img,
+				price: doc.data().price,
+				discount: doc.data().discount,
+				slug: doc.data().slug
+			})
+		});
+	}).then(()=>{
+		productReady=true
+	})
 	
 
 
@@ -169,7 +169,7 @@
 			</div>
 			<div class="flex flex-wrap justify-between">
 
-				 {#if products.length > 0}
+				 {#if productReady}
 				 <!-- {products} -->
 					{#each products as product}
 						 <Home_product obj={product}/>
