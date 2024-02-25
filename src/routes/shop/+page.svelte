@@ -141,8 +141,8 @@
 		<div class="flex flex-col">
 			
 			<div class="flex flex-wrap justify-between">
-				{#if products.length > 0}
-					{#each products as product}
+				{#if products_server}
+					{#each products_server as product}
 						<Home_product obj={product}/>
 					{/each}
 				{/if}
