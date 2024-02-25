@@ -55,7 +55,7 @@
 
 
 
-
+/*
 	const fetchProducts = async () => {
 		try {
 			// Создаем запрос к коллекции 'product', сортируем по полю 'name' и ограничиваем результат определенным лимитом
@@ -100,13 +100,11 @@
 			showMoreVisible=false
 		}
 	}
-
+*/
 	
 
 	// import { page } from '$app/stores';
-
 	// const currentPage = $page;
-	
 	// async function setLocale(lok:any, curr:any ){
 	// 	await loadTranslations(lok, curr);
 	// }
@@ -230,20 +228,15 @@
 						</div>
 					</div>
 				{/if}
-				
-
-				
-			
-			
 			</div>
-			<div class="text-center mt-8">
+
+			<!-- <div class="text-center mt-8">
 				{#if showMoreVisible}
 				<button on:click={()=>{showMore()}} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-16 bg-transparent border border-[#B88E2F] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Show More
 				</button>
 				{/if}
-				
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>
