@@ -1,14 +1,15 @@
 // since there's no dynamic data here, we can prerender
 // it so that it gets served as a static asset in production
 import {db} from "$lib/firebase/firebase"
+import { fetchProducts, getProductCount } from '$lib/firebase/dataFetching';
 import { initializeApp } from "firebase/app";
-import {getFirestore, collection, getDocs } from "firebase/firestore"; 
+import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter  } from "firebase/firestore"; 
 
 export const prerender = true;
+
 let products: Array<any> = []
 
 export const load = async () => {
-
     const fetchProducts = async () => {   
         const querySnapshot = await getDocs(collection(db, "product"));
 		querySnapshot.forEach((doc) => {
@@ -25,6 +26,8 @@ export const load = async () => {
 		});
 		return products
     }
+
+	
 
 
     

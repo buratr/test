@@ -1,7 +1,7 @@
 <script  lang="ts">
 	//import '/src/input.css';
 	export let data;
-	const { products_server } = data;
+	const { products_server} = data;
 	import shopHeroImg from '$lib/images/shop-hero-img.jpg';
 	import { initializeApp } from "firebase/app";
 	import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter } from "firebase/firestore"; 
@@ -60,7 +60,7 @@
 	// })
 
 
-/*
+
 	const fetchProducts = async () => {
     try {
       let q = query(
@@ -97,11 +97,13 @@
 		products = []; // Сбросим список товаров перед загрузкой новой страницы
 		await fetchProducts();
 	};
+
 	$: (async () => {
 		await fetchProducts();
+		
 		totalProducts = await getProductCount();
 	})();
-*/
+
 
 	// import { page } from '$app/stores';
 	// const currentPage = $page;
@@ -141,8 +143,8 @@
 		<div class="flex flex-col">
 			
 			<div class="flex flex-wrap justify-between">
-				{#if products_server}
-					{#each products_server as product}
+				{#if products.length > 0}
+					{#each products as product}
 						<Home_product obj={product}/>
 					{/each}
 				{/if}
@@ -207,7 +209,7 @@
 					</div>
 			   {/if} -->
 			</div>
-			<!-- <div class="mx-auto text-center mt-8 ">
+			<div class="mx-auto text-center mt-8 ">
 				<button  on:click={() => goToPage(currentPage - 1)} disabled={currentPage === 1}
 					class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
 				   Prev
@@ -225,8 +227,8 @@
 					 class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Next
 				</button>
-			</div> -->
 		</div>
+			</div> 
 	</div>
 </section>
 
