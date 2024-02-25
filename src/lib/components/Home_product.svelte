@@ -24,7 +24,7 @@ function addToCart(newItemName:string, img:string, price:string) {
 
 <div class="product_card max-w-sm flex flex-col relative mb-4 mr-4">
     
-    <div class="product-img-wrap">
+    <div class="product-img-wrap relative">
         <div class="absolute bg-[#3A3A3A] bg-opacity-75 bottom-0 left-0 right-0 top-0 hidden flex-col justify-center items-center px-4">
             <!-- <a href="#" on:click={addToCart("test")} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-12 bg-white mb-6 hover:bg-[#f1f1f1]">
                 Add to cart
@@ -59,7 +59,7 @@ function addToCart(newItemName:string, img:string, price:string) {
 
     </div>
     <div class="pt-4 pr-5 pb-7 pl-4 bg-[#F4F5F7]">
-        <a href="/product/{obj.slug}" class="font-['Poppins'] text-2xl font-semibold text-[#3A3A3A] mb-2">{obj.name}</a>
+        <a href="/product/{obj.slug}" class="font-['Poppins'] text-2xl font-semibold text-[#3A3A3A] mb-2 hover:text-[#d9b051]">{obj.name}</a>
         <div class="font-['Poppins'] text-base font-medium text-[#898989] mb-2">{obj.description}</div>
         <div class="flex items-center justify-between flex-wrap">
             <div class="font-['Poppins'] text-xl font-semibold text-[#3A3A3A] mr-2">

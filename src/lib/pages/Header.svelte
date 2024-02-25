@@ -12,6 +12,11 @@
 	import { goto } from '$app/navigation';
 	import {auth} from "$lib/firebase/firebase"
 	import Nav_cart from "$lib/components/Nav_cart.svelte"
+	import {getFirestore, collection, getDocs, doc, setDoc } from "firebase/firestore"; 
+	import {db, fireApp} from "$lib/firebase/firebase"
+	import { cartItems } from '$lib/store';
+	console.log("cartItems: ", cartItems)
+	//import {firebase } from "firebase/app";
 	// const firebaseConfig = {
 	// 	apiKey: "AIzaSyDdXTxd7UgzoleyLWogcypU_9HtGoTv9XQ",
 	// 	authDomain: "project-furniro.firebaseapp.com",
@@ -23,9 +28,36 @@
 
 	//const app = initializeApp(firebaseConfig);
 	//const auth = getAuth(app);
+
+	var userData = {
+		age: 25,
+		height: "180cm",
+		// Другие кастомные поля
+	};
+	// Ссылка на Firestore
+	//var db_2 = fireApp.firestore();
+	async function setCartToDB(uID:string){
+		// "UpsNvOVdbYMoOOGWXJFy5Uloen63"
+		const userDocRef = doc(db, 'users', uID);
+		if (typeof localStorage !== 'undefined') {
+			const savedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+			console.log("Local: ", savedCartItems)
+			//Установка данных пользователя в документ Firestore
+			setDoc(userDocRef, {currentCart:savedCartItems})
+			.then(() => {
+				console.log('Данные пользователя успешно сохранены в Firestore.');
+			})
+			.catch((error) => {
+				console.error('Ошибка при сохранении данных пользователя:', error);
+			});
+		}
+		
+	}
+	//setCartToDB()
+
 	let userAuthStatus:boolean = false;
-	const user = auth.currentUser;
-	console.log(user)
+	// const user = auth.currentUser;
+	// console.log("user: ", user)
 
 	function register (email:string, password:string){
 		createUserWithEmailAndPassword(auth, email, password)
@@ -48,6 +80,7 @@
 			// Signed in 
 			const user = userCredential.user;
 			//console.log(user)
+			setCartToDB(user.uid)
 			// ...
 		})
 		.catch((error) => {
@@ -67,6 +100,7 @@
 		const uid = user.uid;
 		userAuthStatus=true;
 		console.log(userAuthStatus)
+
 		// ...
 	} else {
 		userAuthStatus=false;
@@ -210,10 +244,9 @@ function logOut(){
 			{#if userAuthStatus === true }
 				<div class="user_nav relative">
 					<img class="cursor-pointer w-7" src={lk} alt="Kabinet" />
-					<div class="hidden user_menu absolute bg-slate-100 p-5 rounded drop-shadow-lg">
-						<div class="cursor-pointer text-base font-medium hover:text-yellow-600"
-						on:click={logOut}>
-							LogOut</div>
+					<div class="hidden z-50 user_menu absolute bg-slate-100 p-5 rounded drop-shadow-lg">
+						<button class="cursor-pointer text-base font-medium hover:text-yellow-600"
+						on:click={logOut}>LogOut</button>
 					</div>
 				</div>
 			{:else}

@@ -4,7 +4,7 @@
 	const { products_server } = data;
 	import shopHeroImg from '$lib/images/shop-hero-img.jpg';
 	import { initializeApp } from "firebase/app";
-	import {getFirestore, collection, getDocs } from "firebase/firestore"; 
+	import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter } from "firebase/firestore"; 
 	import Home_rang from "$lib/components/Home_rang.svelte"
 	import Home_product from "$lib/components/Home_product.svelte"
 	import welcome from '$lib/images/svelte-welcome.webp';
@@ -32,24 +32,89 @@
 	async function getProduct() {
 		return await getDocs(collection(db, "product"));
 	}
+
+	let totalProducts = 0;
 	let products: Array<any> = []//= getProduct() 
 	let productReady:boolean = false;
-	getProduct().then(function(result:any) {
-		 result.forEach((doc:any) => {
-		 	const t = doc.data().name
-			products.push({
-				id: doc.id,
-				name: doc.data().name,
-				description: doc.data().description,
-				img: doc.data().img,
-				price: doc.data().price,
-				discount: doc.data().discount,
-				slug: doc.data().slug
-			})
-		});
-	}).then(()=>{
-		productReady=true
-	})
+	let currentPage:number = 1;
+	let itemsPerPage:number = 2;
+	let firstDoc:any = null; // Для хранения первого документа на текущей странице
+  	let lastDoc:any = null; // Для хранения последнего документа на текущей странице
+
+	// let productReady:boolean = false;
+	// getProduct().then(function(result:any) {
+	// 	 result.forEach((doc:any) => {
+	// 	 	const t = doc.data().name
+	// 		products.push({
+	// 			id: doc.id,
+	// 			name: doc.data().name,
+	// 			description: doc.data().description,
+	// 			img: doc.data().img,
+	// 			price: doc.data().price,
+	// 			discount: doc.data().discount,
+	// 			slug: doc.data().slug
+	// 		})
+	// 	});
+	// }).then(()=>{
+	// 	productReady=true
+	// })
+
+
+
+	const fetchProducts = async () => {
+    try {
+      let q = query(
+        collection(db, 'product'),
+        orderBy('name'),
+		limit(itemsPerPage)
+      );
+
+      // Если страница не первая, начинаем выборку с последнего документа предыдущей страницы
+      if (currentPage !== 1) {
+        q = query(
+          q,
+          startAfter(lastDoc),
+		  limit(itemsPerPage)
+        );
+      }
+
+      const querySnapshot = await getDocs(q);
+      products = querySnapshot.docs.map(doc => doc.data());
+      
+      // Обновляем последний документ на текущей странице
+      lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+    } catch (error) {
+      console.error('Ошибка при загрузке товаров:', error);
+    }
+  };
+
+	
+
+	const getProductCount = async () => {
+		const q = collection(db, 'product');
+		const querySnapshot = await getDocs(q);
+		return querySnapshot.size;
+	};
+
+	const goToPage = async (pageNumber:number) => {
+		currentPage = pageNumber;
+		products = []; // Сбросим список товаров перед загрузкой новой страницы
+		//firstDoc = null; // Сбросим первый документ перед загрузкой новой страницы
+		//lastDoc = null; // Сбросим последний документ перед загрузкой новой страницы
+		await fetchProducts();
+
+		// Если мы не находимся на первой странице, обновляем firstDoc и lastDoc
+		// if (currentPage !== 1) {
+		// firstDoc = products[0];
+		// lastDoc = products[products.length - 1];
+		// }
+	};
+
+
+	$: (async () => {
+		await fetchProducts();
+		totalProducts = await getProductCount();
+	})();
 	// import { page } from '$app/stores';
 
 	// const currentPage = $page;
@@ -90,9 +155,12 @@
 		<div class="flex flex-col">
 			
 			<div class="flex flex-wrap justify-between">
-				{#each products_server as product}
-				<Home_product obj={product}/>
-				{/each}
+				{#if products.length > 0}
+					{#each products as product}
+						<Home_product obj={product}/>
+					{/each}
+				{/if}
+				
 				<!-- {#if productReady}
 				 {products} -->
 				   <!-- {#each products as product}
@@ -153,17 +221,22 @@
 					</div>
 			   {/if} -->
 			</div>
-			<div class="mx-auto text-center mt-8 grid grid-cols-[max-content_max-content_max-content_max-content] gap-x-10">
-				<button class="font-['Poppins'] text-xl font-light px-7 py-4 rounded-xl  text-[#fff] bg-[#B88E2F]">
-					1
-				</button>
-				<button class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
-					2
-				</button>
-				<button class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
-					3
-				</button>
-				<button class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
+			<div class="mx-auto text-center mt-8 ">
+				<button  on:click={() => goToPage(currentPage - 1)} disabled={currentPage === 1}
+					class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
+				   Prev
+			   </button>
+				{#each Array.from({ length: Math.ceil(totalProducts / itemsPerPage) }, (_, i) => i + 1) as page}
+					<button on:click={() => goToPage(page)}  class={`${
+						page !== currentPage 
+						  ? "font-['Poppins'] mx-3  text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]" 
+						  : "font-['Poppins'] mx-3 text-xl font-light px-7 py-4 rounded-xl  text-[#fff] bg-[#B88E2F]"
+					  }`}>
+					  {page}
+					</button>
+				{/each}
+				<button on:click={() => goToPage(currentPage + 1)} disabled={currentPage === Math.ceil(totalProducts / itemsPerPage)}
+					 class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Next
 				</button>
 			</div>

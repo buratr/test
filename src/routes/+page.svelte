@@ -15,37 +15,94 @@
 	import logo_bt from '$lib/images/logo_bt.svg';
 	import {db} from "$lib/firebase/firebase"
 	import { initializeApp } from "firebase/app";
-	import {getFirestore, collection, getDocs } from "firebase/firestore"; 
+	import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter } from "firebase/firestore"; 
 	//import {products} from "$lib/firebase/getproduct"
+	export let currentPage:number = 1;
+  	export let itemsPerPage:number = 1;
 
 	async function getProduct() {
 		const querySnapshot = await getDocs(collection(db, "product"));
-		 
+		
 		querySnapshot.forEach((doc) => {
 			//console.log(`${doc.id} => ${doc.data().name}`);
 			//console.log(doc.data());
 		});
 		return querySnapshot
 	}
+
+	let totalProducts = 0;
 	let products: Array<any> = []//= getProduct() 
 	let productReady:boolean = false;
-	getProduct().then(function(result:any) {
-		 result.forEach((doc:any) => {
-		 	const t = doc.data().name
-			products.push({
-				id: doc.id,
-				name: doc.data().name,
-				description: doc.data().description,
-				img: doc.data().img,
-				price: doc.data().price,
-				discount: doc.data().discount,
-				slug: doc.data().slug
-			})
-		});
-	}).then(()=>{
-		productReady=true
-	})
+
 	
+	// getProduct().then(function(result:any) {
+	// 	 result.forEach((doc:any) => {
+	// 	 	const t = doc.data().name
+	// 		products.push({
+	// 			id: doc.id,
+	// 			name: doc.data().name,
+	// 			description: doc.data().description,
+	// 			img: doc.data().img,
+	// 			price: doc.data().price,
+	// 			discount: doc.data().discount,
+	// 			slug: doc.data().slug
+	// 		})
+	// 	});
+	// }).then(()=>{
+	// 	productReady=true
+	// })
+	
+
+
+
+
+	const fetchProducts = async () => {
+		try {
+			// Создаем запрос к коллекции 'product', сортируем по полю 'name' и ограничиваем результат определенным лимитом
+			const q = query(
+			collection(db, 'product'),
+			orderBy('name'), // Замените 'name' на поле, по которому вы хотите сортировать
+			startAfter((currentPage - 1) * itemsPerPage),
+			limit(itemsPerPage)
+			);
+			const querySnapshot = await getDocs(q);
+			products = querySnapshot.docs.map(doc => doc.data());
+			//console.log(products)
+		} catch (error) {
+			console.error('Ошибка при загрузке товаров:', error);
+		}
+	};
+
+	const getProductCount = async () => {
+		const q = collection(db, 'product');
+		const querySnapshot = await getDocs(q);
+		return querySnapshot.size;
+	};
+
+	const goToPage = async (pageNumber:number) => {
+		currentPage = pageNumber;
+		products = []; // Сбросим список товаров перед загрузкой новой страницы
+		await fetchProducts();
+	};
+
+
+	$: (async () => {
+		await fetchProducts();
+		totalProducts = await getProductCount();
+	})();
+
+	let showMoreVisible:boolean = true
+	function showMore(){
+		itemsPerPage += 1
+		console.log(itemsPerPage)
+		fetchProducts();
+		if(itemsPerPage === totalProducts){
+			showMoreVisible=false
+		}
+	}
+
+	
+
 	// import { page } from '$app/stores';
 
 	// const currentPage = $page;
@@ -114,12 +171,12 @@
 			</div>
 			<div class="flex flex-wrap justify-between">
 
-				 {#if productReady}
+				 {#if products.length > 0}
 				 <!-- {products} -->
 					{#each products as product}
 						 <Home_product obj={product}/>
 					{/each}
-					{:else}
+				{:else}
 					<div class="product_card max-w-sm flex flex-col relative mb-4 mr-4">
 						<div class="w-[284px] h-[300px] bg-slate-200"></div>
 						<div class="pt-4 pr-5 pb-7 pl-4 bg-[#F4F5F7]">
@@ -180,9 +237,12 @@
 			
 			</div>
 			<div class="text-center mt-8">
-				<button class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-16 bg-transparent border border-[#B88E2F] hover:text-[#fff] hover:bg-[#B88E2F]">
+				{#if showMoreVisible}
+				<button on:click={()=>{showMore()}} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-16 bg-transparent border border-[#B88E2F] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Show More
 				</button>
+				{/if}
+				
 			</div>
 		</div>
 	</div>
@@ -198,6 +258,7 @@
 			<div class="font-['Poppins'] text-base font-medium text-[#616161] mb-6">
 				Our designer already made a lot of beautiful prototipe of rooms that inspire you
 			</div>
+			
 			<button class="bg-[#B88E2F] px-9 py-3 text-[#ffffff] text-base font-bold uppercase hover:bg-[#d9b051]">
 				Explore More
 			</button>
