@@ -60,7 +60,7 @@
 	// })
 
 
-
+/*
 	const fetchProducts = async () => {
     try {
       let q = query(
@@ -87,38 +87,24 @@
       console.error('Ошибка при загрузке товаров:', error);
     }
   };
-
-	
-
 	const getProductCount = async () => {
 		const q = collection(db, 'product');
 		const querySnapshot = await getDocs(q);
 		return querySnapshot.size;
 	};
-
 	const goToPage = async (pageNumber:number) => {
 		currentPage = pageNumber;
 		products = []; // Сбросим список товаров перед загрузкой новой страницы
-		//firstDoc = null; // Сбросим первый документ перед загрузкой новой страницы
-		//lastDoc = null; // Сбросим последний документ перед загрузкой новой страницы
 		await fetchProducts();
-
-		// Если мы не находимся на первой странице, обновляем firstDoc и lastDoc
-		// if (currentPage !== 1) {
-		// firstDoc = products[0];
-		// lastDoc = products[products.length - 1];
-		// }
 	};
-
-
 	$: (async () => {
 		await fetchProducts();
 		totalProducts = await getProductCount();
 	})();
-	// import { page } from '$app/stores';
+*/
 
+	// import { page } from '$app/stores';
 	// const currentPage = $page;
-	
 	// async function setLocale(lok:any, curr:any ){
 	// 	await loadTranslations(lok, curr);
 	// }
@@ -221,7 +207,7 @@
 					</div>
 			   {/if} -->
 			</div>
-			<div class="mx-auto text-center mt-8 ">
+			<!-- <div class="mx-auto text-center mt-8 ">
 				<button  on:click={() => goToPage(currentPage - 1)} disabled={currentPage === 1}
 					class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
 				   Prev
@@ -239,7 +225,7 @@
 					 class="font-['Poppins'] text-xl font-light text-[#000000] px-7 py-4 rounded-xl bg-[#F9F1E7] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Next
 				</button>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>
