@@ -35,27 +35,27 @@
 	let productReady:boolean = false;
 
 	
-	getProduct().then(function(result:any) {
-		 result.forEach((doc:any) => {
-		 	const t = doc.data().name
-			products.push({
-				id: doc.id,
-				name: doc.data().name,
-				description: doc.data().description,
-				img: doc.data().img,
-				price: doc.data().price,
-				discount: doc.data().discount,
-				slug: doc.data().slug
-			})
-		});
-	}).then(()=>{
-		productReady=true
-	})
+	// getProduct().then(function(result:any) {
+	// 	 result.forEach((doc:any) => {
+	// 	 	const t = doc.data().name
+	// 		products.push({
+	// 			id: doc.id,
+	// 			name: doc.data().name,
+	// 			description: doc.data().description,
+	// 			img: doc.data().img,
+	// 			price: doc.data().price,
+	// 			discount: doc.data().discount,
+	// 			slug: doc.data().slug
+	// 		})
+	// 	});
+	// }).then(()=>{
+	// 	productReady=true
+	// })
 	
 
 
 
-/*
+
 	const fetchProducts = async () => {
 		try {
 			// Создаем запрос к коллекции 'product', сортируем по полю 'name' и ограничиваем результат определенным лимитом
@@ -100,7 +100,7 @@
 			showMoreVisible=false
 		}
 	}
-*/
+
 	
 
 	// import { page } from '$app/stores';
@@ -169,7 +169,7 @@
 			</div>
 			<div class="flex flex-wrap justify-between">
 
-				 {#if productReady}
+				 {#if products.length > 0}
 				 <!-- {products} -->
 					{#each products as product}
 						 <Home_product obj={product}/>
@@ -230,13 +230,13 @@
 				{/if}
 			</div>
 
-			<!-- <div class="text-center mt-8">
+			<div class="text-center mt-8">
 				{#if showMoreVisible}
 				<button on:click={()=>{showMore()}} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-16 bg-transparent border border-[#B88E2F] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Show More
 				</button>
 				{/if}
-			</div> -->
+			</div>
 		</div>
 	</div>
 </section>
