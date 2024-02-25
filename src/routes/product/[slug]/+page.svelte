@@ -4,8 +4,6 @@ import { cartItems } from '$lib/store';
 import {cartVisible} from '$lib/pages/Header'
 //import { t, locales, locale, defaultLocale } from '$lib/translations';
 import Home_product from "$lib/components/Home_product.svelte"
-import {db} from "$lib/firebase/firebase"
-import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter } from "firebase/firestore"; 
 const { currentProduct, relatedProducts } = data;
 
 const productName = currentProduct[0].name
@@ -37,49 +35,6 @@ function addToCart(newItemName:string, img:string, price:string, quantity:string
 function quantPlus(){quant += 1;}
 function quantMinus(){if(quant>1){quant -= 1}}
 
-
-let totalProducts = 0;
-let products: Array<any> = []//= getProduct() 
-let currentPage:number = 1;
-let itemsPerPage:number = 1;
-
-	const fetchProducts = async () => {
-		try {
-			// Создаем запрос к коллекции 'product', сортируем по полю 'name' и ограничиваем результат определенным лимитом
-			const q = query(
-			collection(db, 'product'),
-			orderBy('name'), // Замените 'name' на поле, по которому вы хотите сортировать
-			startAfter((currentPage - 1) * itemsPerPage),
-			limit(itemsPerPage)
-			);
-			const querySnapshot = await getDocs(q);
-			products = querySnapshot.docs.map(doc => doc.data());
-			//console.log(products)
-		} catch (error) {
-			console.error('Ошибка при загрузке товаров:', error);
-		}
-	}; 
-    
-    const getProductCount = async () => {
-		const q = collection(db, 'product');
-		const querySnapshot = await getDocs(q);
-		return querySnapshot.size;
-	};
-
-    $: (async () => {
-		await fetchProducts();
-        totalProducts = await getProductCount();
-	})();
-
-    let showMoreVisible:boolean = true
-	function showMore(){
-		itemsPerPage += 1
-		console.log(itemsPerPage)
-		fetchProducts();
-		if(itemsPerPage === totalProducts){
-			showMoreVisible=false
-		}
-	}
 
 //console.log(products_server)
 </script>
@@ -262,19 +217,14 @@ let itemsPerPage:number = 1;
 				</div>
 			</div>
 			<div class="flex flex-wrap justify-between">
-                {#if products.length > 0}
-                <!-- {products} -->
-                   {#each products as product}
-                        <Home_product obj={product}/>
-                   {/each}
-               {/if}
+                {#each relatedProducts as product}
+				<Home_product obj={product}/>
+				{/each}
 			</div>
 			<div class="text-center mt-8">
-				{#if showMoreVisible}
-				<button on:click={()=>{showMore()}} class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-16 bg-transparent border border-[#B88E2F] hover:text-[#fff] hover:bg-[#B88E2F]">
+				<button class="font-['Poppins'] text-base font-semibold text-[#B88E2F] py-3 px-16 bg-transparent border border-[#B88E2F] hover:text-[#fff] hover:bg-[#B88E2F]">
 					Show More
 				</button>
-				{/if}
 			</div>
 		</div>
 	</div>
