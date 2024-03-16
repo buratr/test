@@ -228,6 +228,9 @@ function logOut(){
 			<div class="block" aria-current={$page.url.pathname === `/shop` || $page.url.pathname === `/shop` ? 'page' : undefined}>
 				<a class="text-black hover:no-underline hover:text-yellow-600" href="/shop">shop</a>
 			</div>
+			<div class="block" aria-current={$page.url.pathname === `/blog` || $page.url.pathname === `/blog` ? 'page' : undefined}>
+				<a class="text-black hover:no-underline hover:text-yellow-600" href="/blog">Blog</a>
+			</div>
 		<!--	<div class="block" aria-current={$page.url.pathname === `/${$locale}/about` || $page.url.pathname === `/about` ? 'page' : undefined}>
 				<a class="text-black hover:no-underline hover:text-yellow-600" href="/{$locale}/about">{$t('nav.about')}</a>
 			</div>
