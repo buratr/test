@@ -36,7 +36,7 @@ console.log(inputEmail)
 	try {
 	const docRef = await addDoc(collection(db, "subscribe"), {
 		email: inputEmail,
-		dste: new Date(),
+		date: new Date(),
 	});
 	console.log("Document written with ID: ", docRef.id);
 	} catch (e) {
