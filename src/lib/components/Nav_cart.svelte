@@ -79,9 +79,15 @@ function delItem(id:number){
         </div>
         <hr>
         <div class="px-7 font-['Poppins'] text-xs mt-7 grid grid-cols-3 gap-x-3.5">
-            <a href="/cart" class="cursor-pointer border border-black rounded-[50px] px-7 py-2 flex justify-center items-center hover:bg-black hover:text-white">Cart</a>
-            <div class="cursor-pointer border border-black rounded-[50px] px-7 py-2 flex justify-center items-center hover:bg-black hover:text-white">Checkout</div>
-            <div class="cursor-pointer border border-black rounded-[50px] px-7 py-2 flex justify-center items-center hover:bg-black hover:text-white">Comparison</div>
+            <a href="/cart" class="cursor-pointer border border-black rounded-[50px] px-7 py-2 flex justify-center items-center hover:bg-black hover:text-white">
+                Cart
+            </a>     
+            <a href="/checkout" class="cursor-pointer border border-black rounded-[50px] px-7 py-2 flex justify-center items-center hover:bg-black hover:text-white">
+                Checkout
+            </a>
+            <div class="cursor-pointer border border-black rounded-[50px] px-7 py-2 flex justify-center items-center hover:bg-black hover:text-white">
+                Comparison
+            </div>
         </div>
     </div>
     
