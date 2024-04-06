@@ -4,7 +4,7 @@
 	const { Post_server} = data;
 	import shopHeroImg from '$lib/images/shop-hero-img.jpg';
 	import { initializeApp } from "firebase/app";
-	import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter } from "firebase/firestore"; 
+	import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter, doc, setDoc, addDoc } from "firebase/firestore"; 
 	import Home_rang from "$lib/components/Home_rang.svelte"
 	import Home_product from "$lib/components/Home_product.svelte"
 	import welcome from '$lib/images/svelte-welcome.webp';
@@ -28,6 +28,36 @@
 
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
+
+
+	const docData: {
+			author: string;
+			category: string;
+			content:string;
+			date: Date | string;
+			description:string;
+			id:number;
+			img:string;
+			slug: string;
+			title:string;
+			views:number
+		} =  {
+		author:"admin",
+		category:"Crafts",
+		content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
+		date:"",
+		description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+		id:3,
+		img:"Handmade.jpg",
+		slug: "going-all-in-with-millennial-design",
+		title:"Going all-in with millennial design",
+		views:0,
+	};
+
+	async function setDocToBd() {
+		await addDoc(collection(db, "blog"), docData);
+	}
+	//setDocToBd()
 
 	async function getProduct() {
 		return await getDocs(collection(db, "product"));
@@ -104,7 +134,7 @@
 		totalProducts = await getProductCount();
 	})();
 
-console.log(Post_server)
+
 	// import { page } from '$app/stores';
 	// const currentPage = $page;
 	// async function setLocale(lok:any, curr:any ){
@@ -129,7 +159,6 @@ console.log(Post_server)
 			<a href="/" class="font-['Poppins'] text-base font-medium text-[#000000]">Home</a>
 			<div class="font-['Poppins'] text-base font-medium text-[#000000] mx-1">></div>
 			<a href="/blog" class="font-['Poppins'] text-base font-medium text-[#000000]">Blog</a>
-		
 		</div>
 	
 	</div>
@@ -187,7 +216,7 @@ console.log(Post_server)
 			<div class="grow max-w-sm min-w-[200px] px-5 pb-5 ">
 				<div class="mb-16">
 					<div class="relative flex items-center pb-10">
-						<input type="text" class="w-full h-14 border border-[#9F9F9F] rounded-md">
+						<input  type="text" class="w-full h-14 border border-[#9F9F9F] rounded-md">
 						<svg class="absolute right-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M21 21L16.514 16.506M19 10.5C19 12.7543 18.1045 14.9163 16.5104 16.5104C14.9163 18.1045 12.7543 19 10.5 19C8.24566 19 6.08365 18.1045 4.48959 16.5104C2.89553 14.9163 2 12.7543 2 10.5C2 8.24566 2.89553 6.08365 4.48959 4.48959C6.08365 2.89553 8.24566 2 10.5 2C12.7543 2 14.9163 2.89553 16.5104 4.48959C18.1045 6.08365 19 8.24566 19 10.5V10.5Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
 						</svg>
