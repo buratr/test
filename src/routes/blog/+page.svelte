@@ -296,8 +296,8 @@
 						
 						{/if}
 					{/if}
-				{:else if posts.length > 0}
-					{#each posts as post}
+				{:else if posts_serv.length > 0}
+					{#each posts_serv as post}
 						<!-- post item  -->
 						<div class="w-full flex flex-col mb-20">
 							<div class="overflow-hidden rounded-md h-[500px] bg-slate-400 mb-4">
