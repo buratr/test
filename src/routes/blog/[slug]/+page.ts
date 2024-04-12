@@ -4,10 +4,12 @@ import {db} from "$lib/firebase/firebase"
 import { fetchProducts, getProductCount } from '$lib/firebase/dataFetching';
 import { initializeApp } from "firebase/app";
 import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter, where   } from "firebase/firestore"; 
+import {getPost} from "$lib/sanityClient";
 
 export const prerender = true;
 
 let Post={} 
+let postNew: Array<any> = []
 
 export const load = async ({ params }) => {
 	let postUri = params.slug
@@ -47,11 +49,16 @@ export const load = async ({ params }) => {
     }
 
 	
-
+	const fetchPost = async () => { 
+		postNew = await getPost(postUri)
+		postNew = postNew[0]
+		return postNew
+	 }
 
     
 
     return {
 		Post_server: fetchProducts(),
+		post_serv_New: fetchPost()
     }
 }

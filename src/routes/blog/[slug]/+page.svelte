@@ -1,7 +1,7 @@
 <script  lang="ts">
 	//import '/src/input.css';
 	export let data;
-	const { Post_server} = data;
+	const { Post_server, post_serv_New} = data;
 	import shopHeroImg from '$lib/images/shop-hero-img.jpg';
 	import { initializeApp } from "firebase/app";
 	import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter, doc, setDoc, addDoc } from "firebase/firestore"; 
@@ -143,18 +143,18 @@
 </script>
 
 <svelte:head>
-	<title>{Post_server.title}</title>
+	<title>{post_serv_New.title}</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <!-- section hero -->
 <!-- bg-[url('/src/lib/images/shop-hero-img.jpg')] -->
 <section class="flex bg-cover justify-center bg-center relative">
-	<img class="absolute w-full h-full object-cover" src="/images/blog/{Post_server.postId}/{Post_server.img}" alt="">
+	<img class="absolute w-full h-full object-cover" src="{post_serv_New.imageUrl}" alt="">
 <div class="container z-10">
 <div class="flex justify-center py-36">
 	<div class=" bg-orange-100/60">
-		<div class="font-['Poppins'] text-5xl font-medium text-[#000000] text-center">{Post_server.title}</div>
+		<div class="font-['Poppins'] text-5xl font-medium text-[#000000] text-center">{post_serv_New.title}</div>
 		<div class="flex justify-center mt-3">
 			<a href="/" class="font-['Poppins'] text-base font-medium text-[#000000]">Home</a>
 			<div class="font-['Poppins'] text-base font-medium text-[#000000] mx-1">></div>
@@ -172,38 +172,41 @@
 		<div class="flex flex-row">
 			<!-- content -->
 			<div class="grow w-96 mr-8">
-				{#if Post_server}
+				{#if post_serv_New}
 				
 				<!-- post item  -->
 				 <div class="w-full flex flex-col mb-20">
 
 					<div class="font-['Poppins'] text-3xl font-medium text-[#000000] mb-4">
-						{Post_server.title}
+						{post_serv_New.title}
 					</div>
 
 					<div class="flex mb-4">
 						<div class="flex font-['Poppins'] text-base font-normal text-[#9F9F9F] mr-9">
 							<svg class="mr-1" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.99977 9.25C7.72977 9.25 7.26977 5.81 7.26977 5.81C6.99977 4.02 7.81977 2 9.96977 2C12.1298 2 12.9498 4.02 12.6798 5.81C12.6798 5.81 12.2698 9.25 9.99977 9.25ZM9.99977 11.82L12.7198 10C15.1098 10 17.2398 12.33 17.2398 14.53V17.02C17.2398 17.02 13.5898 18.15 9.99977 18.15C6.34977 18.15 2.75977 17.02 2.75977 17.02V14.53C2.75977 12.28 4.69977 10.05 7.22977 10.05L9.99977 11.82Z" fill="#9F9F9F"/></svg>
-							{Post_server.author}
+							{post_serv_New.author.name}
 						</div>
 						<div class="flex font-['Poppins'] text-base font-normal text-[#9F9F9F] mr-9">
 							<svg class="mr-1" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.66699 15.8333C1.66699 17.25 2.75033 18.3333 4.16699 18.3333H15.8337C17.2503 18.3333 18.3337 17.25 18.3337 15.8333V9.16666H1.66699V15.8333ZM15.8337 3.33332H14.167V2.49999C14.167 1.99999 13.8337 1.66666 13.3337 1.66666C12.8337 1.66666 12.5003 1.99999 12.5003 2.49999V3.33332H7.50033V2.49999C7.50033 1.99999 7.16699 1.66666 6.66699 1.66666C6.16699 1.66666 5.83366 1.99999 5.83366 2.49999V3.33332H4.16699C2.75033 3.33332 1.66699 4.41666 1.66699 5.83332V7.49999H18.3337V5.83332C18.3337 4.41666 17.2503 3.33332 15.8337 3.33332Z" fill="#9F9F9F"/></svg>
-							{Post_server.date}
+							{post_serv_New.date}
 						</div>
 						<div class="flex font-['Poppins'] text-base font-normal text-[#9F9F9F]">
 							<svg class="mr-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.8966 21.968C12.3666 21.97 11.8566 21.758 11.4826 21.382L3.64564 13.547C3.44131 13.3434 3.28363 13.0978 3.18349 12.8272C3.08335 12.5567 3.04314 12.2676 3.06564 11.98L3.56564 5.41401C3.60018 4.93599 3.80617 4.48652 4.1457 4.14827C4.48524 3.81002 4.93549 3.60574 5.41364 3.57301L11.9796 3.07301C12.0316 3.06201 12.0826 3.06201 12.1346 3.06201C12.6646 3.06201 13.1716 3.27201 13.5446 3.64801L21.3826 11.482C21.5684 11.6677 21.7158 11.8883 21.8164 12.131C21.917 12.3737 21.9687 12.6338 21.9687 12.8965C21.9687 13.1592 21.917 13.4194 21.8164 13.6621C21.7158 13.9048 21.5684 14.1253 21.3826 14.311L14.3106 21.382C14.1254 21.5683 13.905 21.716 13.6623 21.8166C13.4196 21.9172 13.1594 21.9687 12.8966 21.968ZM8.65364 6.65401C8.32475 6.65411 8.00096 6.73531 7.71094 6.89042C7.42093 7.04554 7.17364 7.26978 6.99099 7.54329C6.80834 7.8168 6.69596 8.13113 6.6638 8.45845C6.63164 8.78576 6.68069 9.11595 6.80662 9.41978C6.93255 9.72361 7.13146 9.99169 7.38574 10.2003C7.64002 10.4089 7.94181 10.5516 8.26439 10.6157C8.58698 10.6798 8.92039 10.6633 9.2351 10.5678C9.54982 10.4723 9.83611 10.3006 10.0686 10.068L10.0756 10.062L10.0826 10.055L10.0746 10.062C10.3526 9.78158 10.5414 9.42513 10.6171 9.03759C10.6928 8.65006 10.6522 8.24877 10.5002 7.88432C10.3482 7.51986 10.0918 7.20855 9.76318 6.98961C9.43457 6.77066 9.04851 6.65389 8.65364 6.65401Z" fill="#9F9F9F"/></svg>								
-							{Post_server.category}
+							{post_serv_New.category.name}
 						</div>
 					</div>
 
 					
 
 					<div class="font-['Poppins'] text-sm font-normal text-[#9F9F9F] mb-8">
-						{Post_server.description}
+						{post_serv_New.description}
 					</div>
 
 					<div>
-						{Post_server.content}
+						{#each post_serv_New.content as content}
+							<p>{content.children[0].text}</p>
+						{/each}
+						
 					</div>
 				</div>
 			

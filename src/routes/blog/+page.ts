@@ -4,10 +4,12 @@ import {db} from "$lib/firebase/firebase"
 import { fetchProducts, getProductCount } from '$lib/firebase/dataFetching';
 import { initializeApp } from "firebase/app";
 import {getFirestore, collection, getDocs, query, limit, orderBy, startAfter  } from "firebase/firestore"; 
+import {client, getPosts} from "$lib/sanityClient";
 
 export const prerender = true;
 
 let blogPosts: Array<any> = []
+let posts: Array<any> = []
 
 export const load = async () => {
     const fetchProducts = async () => {   
@@ -40,6 +42,14 @@ export const load = async () => {
 		return blogPosts
     }
 
+
+
+
+	
+	const fetchPost = async () => { 
+		posts = await getPosts()
+		return posts
+	 }
 	
 
 
@@ -47,5 +57,6 @@ export const load = async () => {
 
     return {
 		blogPosts_server: fetchProducts(),
+		posts_serv: fetchPost()
     }
 }
