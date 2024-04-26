@@ -45,11 +45,24 @@ export function updateCartItemQuantity(itemId: number, newQuantity: number): voi
   }));
 }
 
+  // Функция обновления статуса товара в корзине по id
+  export function updateCartItemPaid(itemId: number, newPaid: boolean): void {
+    cartItems.update(items => items.map(item => {
+      if (item.id === itemId) {
+        return {...item, paid: newPaid};
+      }
+      return item;
+    }));
+  }
+
 // Функция подсчета общей суммы заказа
 export function getTotalOrderAmount(items: CartItem[]): number {
    let totalAmount:number = 0;
         items.forEach(item => {
+          if(!item.paid){
             totalAmount += Number(item.price)  * Number(item.quantity);
+          }
+            
         });
         return totalAmount;
   }

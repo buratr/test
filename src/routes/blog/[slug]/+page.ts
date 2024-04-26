@@ -53,7 +53,7 @@ export const load = async ({ params }) => {
 		postNew = await getPost(postUri)
 		postNew = postNew[0]
 		return postNew
-	 }
+	}
 
     
 

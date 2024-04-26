@@ -2,6 +2,8 @@
 	import { initializeApp } from "firebase/app";
 	//import { getFirestore } from "firebase/firestore";
 	import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+	import {cartVisible} from '$lib/pages/Header'
+	import { userId } from '$lib/pages/Header';
 
 	//import { t, locales, locale, defaultLocale } from '$lib/translations';
 	import { page } from '$app/stores';
@@ -94,20 +96,28 @@
 		login("email@i.ua", "password")
 	}
 	onAuthStateChanged(auth, (user) => {
-	if (user) {
-		// User is signed in, see docs for a list of available properties
-		// https://firebase.google.com/docs/reference/js/auth.user
-		const uid = user.uid;
-		userAuthStatus=true;
-		console.log(userAuthStatus)
+		if (user) {
+			// User is signed in, see docs for a list of available properties
+			// https://firebase.google.com/docs/reference/js/auth.user
+			const uid = user.uid;
+			userId.set(JSON.stringify({uid:uid, email: user.email}))
+			userAuthStatus=true;
+			console.log(userAuthStatus)
 
-		// ...
-	} else {
-		userAuthStatus=false;
-		//console.log("no auth")
-		// User is signed out
-		// ...
-	}
+			// ...
+		} else {
+			userAuthStatus=false;
+			const userIdValue = $userId;
+			console.log("userAuthStatus: ", userIdValue)
+			if(!userIdValue){
+				let guestId = Math.random().toString(36).substr(2, 9);
+				userId.set("guest-"+guestId)
+			}
+			
+			//console.log("no auth")
+			// User is signed out
+			// ...
+		}
 	});
 
 
@@ -122,7 +132,7 @@
 // let cur_url:string = $locale
 //console.log("cur_url", cur_url)
 
-import {cartVisible} from '$lib/pages/Header'
+
 //let cartVisible:boolean = false
 let modalLogin:boolean = false;
 let inputEmail:string, inputPass:string, inputCPass:string  = "";
@@ -168,6 +178,7 @@ function formLogin(){
 }
 function logOut(){
 	signOut(auth).then(() => {
+		userId.set("")
 	// Sign-out successful.
 	}).catch((error) => {
 	// An error happened.

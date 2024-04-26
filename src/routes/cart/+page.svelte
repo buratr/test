@@ -3,6 +3,7 @@
 	export let data;
 	//const { products_server } = data;
 	import { cartItems, removeFromCart, updateCartItemQuantity, getTotalOrderAmount } from '$lib/store';
+	import {getCurrentUser} from "$lib/pages/Header.js"
 	import logoIcon from '$lib/images/House_Logo.png';
 	import shopHeroImg from '$lib/images/shop-hero-img.jpg';
 	import { initializeApp } from "firebase/app";
@@ -18,6 +19,16 @@
 	//import { t, loadTranslations } from '$lib/translations';
 
 	import logo_bt from '$lib/images/logo_bt.svg';
+	let currentUserVal:any
+	async function getUserStore() {
+		 currentUserVal = await getCurrentUser();
+		 console.log("currentUserVal: ", currentUserVal)
+		 if(currentUserVal.email){
+			currentUserVal = currentUserVal.email
+		 }
+	}
+	getUserStore()
+	
 
 	const firebaseConfig = {
 		apiKey: "AIzaSyDdXTxd7UgzoleyLWogcypU_9HtGoTv9XQ",
@@ -96,8 +107,11 @@
 </section>
 
 <!-- section Our Products -->
-<section class="flex justify-center mt-40 mb-20">
+<section class="flex justify-center mt-20 mb-20">
 	<div class="container">
+		<div class="text-center font-['Poppins'] text-xl font-normal text-[#000000] mb-20">
+			Welcome <div class="font-semibold text-[#B88E2F]">{currentUserVal}</div>
+		</div>
 		<div class="flex flex-row justify-between w-full">
 			<div class="flex-1">
                 <div class="bg-[#F9F1E7] py-4 flex justify-between">
@@ -110,8 +124,8 @@
                 </div>
 
 				<div class="mt-14">
-					{#each $cartItems as item (item.id)}
-					<div class="flex justify-between items-center mb-8">
+					{#each $cartItems.slice().reverse() as item (item.id)}
+					<div class="flex justify-between items-center mb-5 {item.paid?'bg-lime-200':''} pr-3 rounded-xl">
 						<div class="relative">
 							<div style="background-color: {item.color};" class="absolute left-1 top-1 rounded-full w-5 h-5 flex justify-center items-center border-[1px] border-white"></div>
 							<div class="absolute left-auto right-1 top-1 bg-[#B88E2F] rounded-lg w-auto px-1 text-xs h-5 flex justify-center items-center  text-white border-[1px] border-white">{item.size}</div>
@@ -121,7 +135,9 @@
 
 						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">{item.name}</div>
 						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Rs. {item.price}</div>
-						<input class="border rounded border-black w-12 h-8 pl-3 pr-1" type="number" min="1" bind:value={item.quantity} on:change={() => updateQuantity(item.id, item.quantity)} >
+						<input class="border rounded border-black w-12 h-8 pl-3 pr-1 " 
+						disabled="{item.paid}"
+						type="number" min="1" bind:value={item.quantity} on:change={() => updateQuantity(item.id, item.quantity)} >
 						<div class="font-['Poppins'] text-base font-normal text-[#000000]">Rs. {item.price * item.quantity}</div>
 						<svg on:click={()=>{delItem(item.id)}} class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M23.625 7H20.125V4.8125C20.125 3.84727 19.3402 3.0625 18.375 3.0625H9.625C8.65977 3.0625 7.875 3.84727 7.875 4.8125V7H4.375C3.89102 7 3.5 7.39102 3.5 7.875V8.75C3.5 8.87031 3.59844 8.96875 3.71875 8.96875H5.37031L6.0457 23.2695C6.08945 24.202 6.86055 24.9375 7.79297 24.9375H20.207C21.1422 24.9375 21.9105 24.2047 21.9543 23.2695L22.6297 8.96875H24.2812C24.4016 8.96875 24.5 8.87031 24.5 8.75V7.875C24.5 7.39102 24.109 7 23.625 7ZM18.1562 7H9.84375V5.03125H18.1562V7Z" fill="#B88E2F"/></svg>
 					</div>
@@ -130,21 +146,24 @@
 				</div>
 				
             </div>
-            <!-- Cart Totals -->
-            <div class="bg-[#F9F1E7] w-[393px] pt-4 pb-20 px-16 ml-8">
-                <div class="font-['Poppins'] text-3xl font-semibold text-[#000000] text-center">Cart Totals</div>
-                <div class="flex justify-between mt-14"> 
-                    <div class="font-['Poppins'] text-base font-medium text-[#000000]">Subtotal</div>
-                    <div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Rs. {totalAmount||0}</div>
-                </div>
-                <div class="flex justify-between mt-8"> 
-                    <div class="font-['Poppins'] text-base font-medium text-[#000000]">Totall</div>
-                    <div class="font-['Poppins'] text-xl font-medium text-[#B88E2F]">Rs. {totalAmount||0}</div>
-                </div>
-                <a href="/checkout" class="mt-12 cursor-pointer border border-black rounded-[15px] px-14 py-4 flex justify-center items-center hover:bg-black hover:text-white">
-					Check Out
-				</a>
-            </div>
+			{#if totalAmount != 0}
+				<!-- Cart Totals -->
+				<div class="bg-[#F9F1E7] w-[393px] pt-4 pb-20 px-16 ml-8">
+					<div class="font-['Poppins'] text-3xl font-semibold text-[#000000] text-center">Cart Totals</div>
+					<div class="flex justify-between mt-14"> 
+						<div class="font-['Poppins'] text-base font-medium text-[#000000]">Subtotal</div>
+						<div class="font-['Poppins'] text-base font-normal text-[#9F9F9F]">Rs. {totalAmount||0}</div>
+					</div>
+					<div class="flex justify-between mt-8"> 
+						<div class="font-['Poppins'] text-base font-medium text-[#000000]">Totall</div>
+						<div class="font-['Poppins'] text-xl font-medium text-[#B88E2F]">Rs. {totalAmount||0}</div>
+					</div>
+					<a href="/checkout" class="mt-12 cursor-pointer border border-black rounded-[15px] px-14 py-4 flex justify-center items-center hover:bg-black hover:text-white">
+						Check Out
+					</a>
+				</div>
+			{/if}
+            
 		</div>
 	</div>
 </section>

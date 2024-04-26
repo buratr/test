@@ -27,7 +27,8 @@
           price: price,
           quantity:quantity,
           size: currentSize,
-          color: currentColor 
+          color: currentColor,
+          paid: false 
         };
     
         cartItems.update(items => [...items, newItem]);
